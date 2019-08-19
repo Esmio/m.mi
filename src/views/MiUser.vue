@@ -10,7 +10,7 @@
             </div>
             <div class="name">
               <p>{{userInfo.userName}}</p>
-              <div class="account">{{userInfo.user_id}}</div>
+              <div class="account">{{userInfo.mobile}}</div>
             </div>
           </div>
           <div v-else class="user ui-flex align-center">

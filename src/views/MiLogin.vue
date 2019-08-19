@@ -182,11 +182,13 @@ export default {
       }
       this.$fetch('login', data).then(res => {
         let status = res.status
+        console.log(res.status)
         if (status === 200) {
-          console.log('成功登录')
+          console.log('成功登录');
           this.$fetch('userInfo').then(res => {
             this.$store.commit('setUserInfo', res.data.user)
-            let path = this.$route.query.redirect || '/user'
+            // let path = this.$route.query.redirect || '/user'
+            let path = '/user'
             this.$router.push(path)
           })
         } else {
