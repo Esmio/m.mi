@@ -50,7 +50,7 @@ const url = {
   },
   addressView: {
     method: 'get',
-    path: apiPrefix + 'address/:id',
+    path: apiPrefix + '/address/:id',
     implemented: true
   },
   addressDel: {

@@ -14,7 +14,7 @@
                     <span>{{list.tel}}</span>
                     <em v-if="list.is_default"> [默认]</em>
                   </li>
-                  <li class="ui-list-item edit" @click="clickHandler(list)">
+                  <li class="ui-list-item edit" @click="clickHandler(list.address_id)">
                     <p>{{list.province}} {{list.city}} {{list.district}} {{list.area}}</p>
                     <p>{{list.address}}</p>
                   </li>
@@ -90,21 +90,31 @@ export default {
       Dialog.confirm({
         message: '确定删除当前地址?'
       }).then(() => {
-        fetch('addressDel', {
-          address_id: list.address_id
-        }).then(res => {
-          this.lists.splice(index, 1)
+        const id = list.address_id
+        Address['remove'](id).then(res => {
+          if (this.$route.query.type === 'checkout') {
+            //  调用接口/address/cartDelivery
+            this.$router.go(-1)
+          } else {
+            this.$router.go(-1)
+          }
         })
+        // fetch('addressDel', {
+        //   address_id: list.address_id
+        // }).then(res => {
+        //   console.log('res', res)
+        //   this.lists.splice(index, 1)
+        // })
       })
     },
-    clickHandler (list) {
+    clickHandler (id) {
       if (!this.isEdit) {
         this.$router.go(-1)
       } else {
         // 调用接口/address/cartDelivery
         this.$router.push({
           name: 'addressEdit',
-          query: { address_id: list.address_id }
+          query: { address_id: id }
         })
       }
     }

@@ -23,7 +23,7 @@ class Address {
     })
   }
 
-  static romve (id) {
+  static remove (id) {
     return fetch('addressDel', {
       address_id: id
     }, {
