@@ -122,7 +122,6 @@ export default {
       this.$store.commit('setViewLoading', false)
       this.$NProgress.done()
       let info = res.data
-      info.is_default = info.is_default === 1
       this.addressInfo = info
       this.telplaceholder = info.tel
       this.addressInfo.tel = ''
@@ -175,7 +174,7 @@ export default {
         return
       }
 
-      this.addressInfo.is_default = this.addressInfo.is_default ? 1 : 2
+      // this.addressInfo.is_default = this.addressInfo.is_default ? 1 : 2
       let api = this.$route.query.address_id ? 'save' : 'add'
       const opts = {}
       if(this.$route.query.address_id) opts.params = {id: this.$route.query.address_id}
