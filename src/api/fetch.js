@@ -33,8 +33,7 @@ function fetch (api, data, opts) {
           reject(err)
         } else {
           console.error(err)
-          let mock = require('../mock/index.js')
-          resolve(mock[api])
+          resolve(mockObj[api])
         }
       })
     } else {

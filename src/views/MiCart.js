@@ -57,15 +57,16 @@ export default {
     }),
     getCartList () {
       this.$fetch('cartIndex').then(res => {
+        console.log(res)
         this.setCartList(res)
       })
     },
     setCartList (res) {
       this.$NProgress.done()
       this.$store.commit('setViewLoading', false)
-      // this.cartList = res.data.items
-      // let items = cartIndex.data.items
-      let items = JSON.parse(JSON.stringify(cartIndex)).data.items
+      this.cartList = res.data.items
+      let items = this.cartList
+      // let items = JSON.parse(JSON.stringify(cartIndex)).data.items
       let serviceSelect = []
       items.forEach(item => {
         if (item.service_info) {
@@ -91,6 +92,7 @@ export default {
         items.splice(index + 1, 0, {
           buy_limit: items[index].num,
           goodsId: info.service_goods_id,
+          productId: info.productId,
           image_url: info.service_image_url,
           num: info.num,
           price: info.service_price,
@@ -119,6 +121,7 @@ export default {
         items.splice(index + 1, 0, {
           buy_limit: items[index].num,
           goodsId: gift.actId,
+          productId: gift.product_id,
           image_url: gift.image_url,
           num: items[index].num,
           product_name: gift.product_name,
@@ -178,10 +181,15 @@ export default {
       if (num < 0 && item.num === 1) return
       // eslint-disable-next-line
       if (num > 0 && item.num == item.buy_limit) return
-      let consumption = num > 0 ? 2 : 1
+      // let consumption = num > 0 ? 2 : 1
+      item.num += num
       this.$fetch('cartEdit', {
         goodsId: item.goodsId,
-        consumption
+        item
+      }, {
+        params: {
+          id: item.id
+        }
       }).then(res => {
         item.num += num
         this.cartList.forEach(list => {
@@ -257,6 +265,7 @@ export default {
             this.cartList.splice(index + 1, 0, {
               buy_limit: cashItem.num,
               goodsId: list.service_goods_id,
+              productId: list.product_id,
               image_url: list.service_image_url,
               num: list.num,
               price: list.service_price,
@@ -273,6 +282,10 @@ export default {
     cartDelete (item, index) {
       this.$fetch('cartDelete', {
         goodsId: item.goodsId
+      }, {
+        params: {
+          id: item.id
+        }
       }).then(res => {
         this.cartList.splice(index, 1)
         if (item.parent_goodsId) {

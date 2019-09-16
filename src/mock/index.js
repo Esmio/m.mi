@@ -10,8 +10,6 @@ import { addressList, addressAdd, addressSave, addressView, addressDel, addressR
 import addressAll from './addressAll.js'
 import { orderCheckout, orderList, orderView } from './order'
 
-console.log('addressAll', addressAll)
-
 export {
   login,
   userInfo,

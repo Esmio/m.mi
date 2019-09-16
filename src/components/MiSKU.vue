@@ -220,9 +220,18 @@ export default {
       })
     },
     addToCart () {
-      // todo:放到购物车模块实现
-      this.addCartCount(this.selectedGood.buyNumber)
-      this.closeSKU()
+      // todo:放到购物车模块实现，替换为真实SKU数据
+      const goods_id = this.selectedGood.goods_id
+      this.$fetch('cartAdd', {
+        item: {
+          goods_id,
+          nums: this.selectedGood.buyNumber
+        }
+      })
+        .then(() => {
+          this.addCartCount(this.selectedGood.buyNumber) 
+          this.closeSKU()
+        })
     },
     closeSKU () {
       this.$emit('close')

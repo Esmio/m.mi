@@ -63,6 +63,7 @@ export default {
           this.$fetch('estDelivery', {
             address_id: this.addressDefault.address_id
           }).then(res => {
+            console.log('est', res)
             this.deliveryData = res.data
           })
         }
@@ -104,6 +105,10 @@ export default {
     getProductData () {
       this.$fetch('productView', {
         commodity_id: this.$route.params.id
+      }, {
+        params: {
+          id: this.$route.params.id
+        }
       }).then(res => {
         this.setProductData(res, this.$route.params.id)
       })
