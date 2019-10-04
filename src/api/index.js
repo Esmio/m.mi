@@ -109,12 +109,24 @@ const url = {
     method: 'delete',
     path: apiPrefix + '/address/:id',
     implemented: true
-  }
+  },
   // addressAll: '/address/all'
   // addressRegion: '/address/region',
-  // orderCheckout: '/order/checkout',
-  // orderList: '/order/list',
-  // orderView: '/order/view'
+  orderCheckout: {
+    method: 'get',
+    path: apiPrefix + '/orderCheckOut',
+    implemented: true
+  },
+  orderList: {
+    method: 'get',
+    path: apiPrefix + '/order',
+    implemented: true
+  },
+  orderView: {
+    method: 'get',
+    path: apiPrefix + '/order/:id',
+    implemented: true
+  }
 }
 
 Object.keys(url).forEach(key => {
